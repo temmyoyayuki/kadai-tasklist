@@ -1,0 +1,26 @@
+<h1>Sign UP</h1>
+
+<div>
+  <%= form_with(model: @user, local: true) do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>   
+    <div>
+      <%= f.label :name, '名前' %> 
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :email, 'メールアドレス' %>
+      <%= f.text_field :email %>
+    </div>
+    <div>
+      <%= f.label :password, 'パスワード' %>
+      <%= f.password_field :password %>
+    </div>    
+    <div>
+      <%= f.label :password_confirmation, 'パスワード（確認）' %>
+      <%= f.password_field :password_confirmation %>
+    </div>  
+
+  <%= f.submit 'Sign Up' %>
+  
+  <% end %>  
+</div>
