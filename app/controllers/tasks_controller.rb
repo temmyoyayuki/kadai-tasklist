@@ -60,11 +60,10 @@ class TasksController < ApplicationController
     end
     
     def task_params
-        params.require(:task).permit(:content, :status)
+        params.require(:task).permit(:content, :status, :user_id)
     end    
     
     def ensure_correct_user
-        @task = Task.find_by(params[:id])
         if current_user.id != @task.user_id
            flash[:danger] = 'ページを表示できません'    
            redirect_to login_path
