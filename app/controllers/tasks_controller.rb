@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :require_user_logged_in, only: [:index, :show, :new, :edit, :destroy]
-  before_action :ensure_correct_user, only: [:show, :edit]
+  before_action :require_user_logged_in
+  before_action :ensure_correct_user, only: [:show, :edit, :update, :destroy]
   
     def index
         if logged_in?
@@ -54,16 +53,13 @@ class TasksController < ApplicationController
     end    
 
     private
-    
-    def set_task
-        @task = Task.find(params[:id])
-    end
-    
+
     def task_params
         params.require(:task).permit(:content, :status, :user_id)
     end    
     
     def ensure_correct_user
+        @task = Task.find(params[:id])
         if current_user.id != @task.user_id
            flash[:danger] = 'ページを表示できません'    
            redirect_to login_path
